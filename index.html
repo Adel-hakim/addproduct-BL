@@ -1972,7 +1972,8 @@
         function renderStages(container, emptyMsg, stagesArray) {
             container.innerHTML = '';
             if (!stagesArray || stagesArray.length === 0) {
-                container.innerHTML = `<span style="color: var(--muted); font-size: 13px; padding: 6px;">${emptyMsg}</span>`;
+                container.innerHTML =
+                `<span style="color: var(--muted); font-size: 13px; padding: 6px;">${emptyMsg}</span>`;
                 return;
             }
             stagesArray.forEach((stage, index) => {
@@ -1999,7 +2000,7 @@
             });
 
             container.querySelectorAll('button[data-index]').forEach(btn => {
-                btn.addEventListener('click', function () {
+                btn.addEventListener('click', function() {
                     const index = parseInt(this.dataset.index);
                     if (container.id === 'stagesContainer') {
                         stages.splice(index, 1);
@@ -2044,7 +2045,7 @@
         }
 
         // ============================================================
-        // IMAGE PREVIEW FUNCTIONS - FINAL FIX
+        // IMAGE PREVIEW FUNCTIONS
         // ============================================================
 
         function renderMainImagePreview(container, images, mainIndex, emptyText) {
@@ -2052,7 +2053,8 @@
             container.innerHTML = '';
 
             if (!images || images.length === 0) {
-                container.innerHTML = `<div class="no-main-image">📷 ${emptyText || 'لم يتم اختيار صورة رئيسية'}</div>`;
+                container.innerHTML =
+                `<div class="no-main-image">📷 ${emptyText || 'لم يتم اختيار صورة رئيسية'}</div>`;
                 return;
             }
 
@@ -2063,7 +2065,8 @@
 
             const mainImage = images[safeIndex];
             if (!mainImage || !mainImage.url) {
-                container.innerHTML = `<div class="no-main-image">📷 ${emptyText || 'لم يتم اختيار صورة رئيسية'}</div>`;
+                container.innerHTML =
+                `<div class="no-main-image">📷 ${emptyText || 'لم يتم اختيار صورة رئيسية'}</div>`;
                 return;
             }
 
@@ -2108,7 +2111,8 @@
                 figure.style.overflow = 'hidden';
                 figure.style.borderRadius = '8px';
                 figure.style.background = '#eef0f2';
-                figure.style.border = index === mainImageIndex ? '3px solid var(--accent)' : '2px solid transparent';
+                figure.style.border = index === mainImageIndex ? '3px solid var(--accent)' :
+                '2px solid transparent';
                 figure.style.cursor = 'pointer';
 
                 const img = document.createElement('img');
@@ -2157,7 +2161,7 @@
                 `;
                 remove.textContent = '×';
                 remove.setAttribute('aria-label', 'حذف الصورة ' + (index + 1));
-                remove.addEventListener('click', function (event) {
+                remove.addEventListener('click', function(event) {
                     event.stopPropagation();
                     event.preventDefault();
                     URL.revokeObjectURL(item.url);
@@ -2176,7 +2180,7 @@
                 });
                 figure.appendChild(remove);
 
-                figure.addEventListener('click', function () {
+                figure.addEventListener('click', function() {
                     mainImageIndex = index;
                     renderPreviews();
                 });
@@ -2218,7 +2222,8 @@
                 item.style.overflow = 'hidden';
                 item.style.borderRadius = '7px';
                 item.style.background = '#eef0f2';
-                item.style.border = index === editMainImageIndex ? '3px solid var(--accent)' : '2px solid transparent';
+                item.style.border = index === editMainImageIndex ? '3px solid var(--accent)' :
+                '2px solid transparent';
                 item.style.cursor = 'pointer';
 
                 const img = document.createElement('img');
@@ -2267,7 +2272,7 @@
                 `;
                 remove.textContent = '×';
                 remove.setAttribute('aria-label', 'حذف الصورة ' + (index + 1));
-                remove.addEventListener('click', function (event) {
+                remove.addEventListener('click', function(event) {
                     event.stopPropagation();
                     event.preventDefault();
 
@@ -2293,7 +2298,7 @@
                 });
                 item.appendChild(remove);
 
-                item.addEventListener('click', function () {
+                item.addEventListener('click', function() {
                     editMainImageIndex = index;
                     renderEditImages();
                 });
@@ -2386,7 +2391,7 @@
         function playOrderAlert() {
             try {
                 if (!audioContext) {
-                    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    audioContext = new(window.AudioContext || window.webkitAudioContext)();
                 }
                 if (audioContext.state === 'suspended') {
                     audioContext.resume();
@@ -2447,10 +2452,10 @@
                 .channel('admin-orders-changes')
                 .on(
                     'postgres_changes', {
-                    event: '*',
-                    schema: 'public',
-                    table: 'orders'
-                },
+                        event: '*',
+                        schema: 'public',
+                        table: 'orders'
+                    },
                     async (payload) => {
                         console.log('🔄 Orders change detected:', payload.eventType);
                         await loadReceivedOrders();
@@ -2478,10 +2483,10 @@
                 .channel('admin-products-changes')
                 .on(
                     'postgres_changes', {
-                    event: '*',
-                    schema: 'public',
-                    table: 'products'
-                },
+                        event: '*',
+                        schema: 'public',
+                        table: 'products'
+                    },
                     async () => {
                         await loadManagedProducts();
                     }
@@ -2529,7 +2534,7 @@
                 const productIds = [
                     ...new Set(
                         (orders || [])
-                            .flatMap(order => (order.order_items || []).map(item => item.product_id).filter(Boolean))
+                        .flatMap(order => (order.order_items || []).map(item => item.product_id).filter(Boolean))
                     )
                 ];
 
@@ -3172,7 +3177,7 @@
             `;
 
             manageContent.querySelectorAll('.manage-edit').forEach(button =>
-                button.addEventListener('click', function () {
+                button.addEventListener('click', function() {
                     const productId = this.dataset.productId;
                     openEditModal(productId);
                 })
@@ -3244,7 +3249,7 @@
             const editSizes = getCategorySizes(product.category);
             document.getElementById('editRangeNote').textContent =
                 editSizes ? `المقاسات: ${editSizes[0]} - ${editSizes[1]}` :
-                    `المقاسات القديمة: ${product.size_from} - ${product.size_to}`;
+                `المقاسات القديمة: ${product.size_from} - ${product.size_to}`;
 
             document.getElementById('editStock').value = product.stock_quantity || 0;
             document.getElementById('editDescription').value = product.description || '';
@@ -3272,7 +3277,7 @@
             document.getElementById('editName').focus();
         }
 
-        editImageInput.addEventListener('change', function (event) {
+        editImageInput.addEventListener('change', function(event) {
             if (!event.target.files || event.target.files.length === 0) return;
 
             const valid = [...event.target.files]
@@ -3367,6 +3372,53 @@
             return imageRows;
         }
 
+        // ============================================================
+        // SUBMIT PRODUCT FORM
+        // ============================================================
+        form.addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            if (!validate()) {
+                const firstError = document.querySelector('.field-error:not(:empty)');
+                if (firstError) {
+                    firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+                return;
+            }
+
+            submitButton.disabled = true;
+            submitButton.textContent = 'جاري الرفع...';
+            showStatus('info', '⏳ جاري رفع المنتج والصور...');
+
+            try {
+                const product = await saveProductToSupabase();
+                showStatus('success', `✅ تم رفع المنتج "${document.getElementById('productName').value}" بنجاح!`);
+
+                form.reset();
+                selectedImages = [];
+                mainImageIndex = 0;
+                stages = [];
+                renderStages(document.getElementById('stagesContainer'), 'لم يتم إضافة مراحل بعد', stages);
+                renderPreviews();
+                document.getElementById('category').value = '';
+                updateRange();
+                document.getElementById('rangeNote').textContent = 'اختر القسم لعرض المقاسات تلقائيًا';
+                document.getElementById('stagesError').textContent = '';
+
+                await loadManagedProducts();
+
+            } catch (error) {
+                console.error('❌ فشل رفع المنتج:', error);
+                showStatus('error', '❌ حدث خطأ أثناء رفع المنتج: ' + (error.message || 'خطأ غير معروف'));
+            } finally {
+                submitButton.disabled = false;
+                submitButton.textContent = 'إضافة المنتج';
+            }
+        });
+
+        // ============================================================
+        // EDIT FORM SUBMIT
+        // ============================================================
         editForm.addEventListener('submit', async event => {
             event.preventDefault();
 
@@ -3573,7 +3625,7 @@
             }
         }
 
-        document.getElementById('deleteFromEdit').addEventListener('click', function () {
+        document.getElementById('deleteFromEdit').addEventListener('click', function() {
             if (!editingProductId) {
                 showStatus('error', '❌ لا يوجد منتج محدد للحذف. يرجى فتح منتج للتعديل أولاً.');
                 return;
@@ -3624,7 +3676,7 @@
             const confirmBtn = confirmModal.querySelector('#confirmDeleteBtn');
             const cancelBtn = confirmModal.querySelector('#cancelDeleteBtn');
 
-            confirmBtn.addEventListener('click', async function () {
+            confirmBtn.addEventListener('click', async function() {
                 confirmBtn.disabled = true;
                 confirmBtn.textContent = 'جاري الحذف...';
 
@@ -3640,11 +3692,11 @@
                 }
             });
 
-            cancelBtn.addEventListener('click', function () {
+            cancelBtn.addEventListener('click', function() {
                 confirmModal.remove();
             });
 
-            confirmModal.addEventListener('click', function (event) {
+            confirmModal.addEventListener('click', function(event) {
                 if (event.target === confirmModal) {
                     confirmModal.remove();
                 }
@@ -3655,14 +3707,21 @@
         // ADD PRODUCT
         // ============================================================
         function getProductValues() {
+            const category = document.getElementById('category').value;
+            const sizes = getCategorySizes(category);
+
+            if (!sizes) {
+                throw new Error('⚠ الفئة المختارة غير صالحة أو لا تحتوي على مقاسات محددة');
+            }
+
             return {
                 name: document.getElementById('productName').value.trim(),
-                category: document.getElementById('category').value,
+                category: category,
                 product_type: document.getElementById('productType').value,
                 origin: document.getElementById('origin').value,
                 price: Number(document.getElementById('price').value),
-                size_from: getCategorySizes(document.getElementById('category').value)[0],
-                size_to: getCategorySizes(document.getElementById('category').value)[1],
+                size_from: sizes[0],
+                size_to: sizes[1],
                 description: document.getElementById('description').value.trim() || null,
                 stock_quantity: Number(document.getElementById('stockQuantity').value),
                 is_active: true,
@@ -3744,10 +3803,15 @@
                 setError('nameError', '⚠ اسم المنتج مطلوب');
                 valid = false;
             }
+
             if (!category) {
                 setError('categoryError', '⚠ اختر الفئة');
                 valid = false;
+            } else if (!getCategorySizes(category)) {
+                setError('categoryError', '⚠ الفئة المختارة غير صالحة');
+                valid = false;
             }
+
             if (!productType) {
                 setError('productTypeError', '⚠ اختر نوع المنتج');
                 valid = false;
@@ -3797,7 +3861,7 @@
                 '>': '&gt;',
                 '"': '&quot;',
                 "'": '&#39;'
-            }[character] || character));
+            } [character] || character));
         }
 
         function orderDisplayNumber(order) {
@@ -3812,7 +3876,7 @@
                 completed: 'مكتمل',
                 cancelled: 'ملغي',
                 returned: 'مرتجع'
-            }[status] || status);
+            } [status] || status);
         }
 
         function isActiveOrder(order) {
@@ -3857,7 +3921,7 @@
             const sizes = getCategorySizes(document.getElementById('category').value);
             document.getElementById('rangeNote').textContent =
                 sizes ? 'المقاسات: ' + sizes[0] + ' - ' + sizes[1] :
-                    'اختر القسم لعرض المقاسات تلقائيًا';
+                'اختر القسم لعرض المقاسات تلقائيًا';
         }
 
         // ============================================================
@@ -3925,7 +3989,7 @@
             const sizes = getCategorySizes(document.getElementById('editCategory').value);
             document.getElementById('editRangeNote').textContent =
                 sizes ? 'المقاسات: ' + sizes[0] + ' - ' + sizes[1] :
-                    'اختر القسم لعرض المقاسات تلقائيًا';
+                'اختر القسم لعرض المقاسات تلقائيًا';
         });
 
         ordersButton.addEventListener('click', () => {
